@@ -1,118 +1,149 @@
-🏡 Plateforme de Gestion d’Annonces Immobilières
+# 🏠 Plateforme Web de Gestion et Publication d’Annonces Immobilières
 
-Projet Node.js / Express / MongoDB / OOP / Docker / CI-CD
+## 📘 Contexte du projet
 
-📘 Description du projet
+Ce projet a pour objectif de concevoir et développer une **plateforme web moderne** de gestion et de publication d’annonces immobilières, destinée aussi bien aux **particuliers** qu’aux **entreprises** (agences, promoteurs).
 
-Ce projet a pour objectif de concevoir et développer une API web moderne pour la gestion et la publication d’annonces immobilières, destinée aussi bien aux particuliers qu’aux entreprises (agences immobilières, promoteurs).
+Cette solution se veut **scalable**, **sécurisée** et **intelligente**, exploitant les technologies récentes de l’écosystème **Node.js** afin de garantir **performance**, **modularité** et **évolutivité**.
 
-La solution est pensée pour être sécurisée, scalable, performante et modulaire, exploitant les technologies récentes de l’écosystème Node.js et suivant les principes de programmation orientée objet (OOP) et architecture n-tiers.
+---
 
-🚀 Fonctionnalités principales
+## 🚀 Fonctionnalités principales
 
-🔹 Gestion complète des biens immobiliers (ajout, modification, suppression, publication).
+### 🔹 Gestion complète des biens immobiliers
+- Création, modification, suppression et publication des annonces.
+- Vente, location journalière, mensuelle ou longue durée.
+- Promotion de biens selon le plan d’abonnement.
 
-🔹 Comptes utilisateurs différenciés (Visiteur, Particulier, Entreprise, Admin).
+### 🔹 Comptes et abonnements différenciés
+- Profils : **Visiteur**, **Particulier**, **Entreprise (Agence/Promoteur)**, **Administrateur**.
+- Types d’abonnement : **Gratuit**, **Pro**, **Premium**.
+- Impact sur la visibilité et la priorité d’affichage.
 
-🔹 Système d’authentification sécurisé avec JWT et middleware d’accès.
+### 🔹 Stockage de médias
+- Hébergement d’images et vidéos sur **MinIO**.
+- Génération automatique de vignettes.
 
-🔹 Stockage des médias (images, vidéos) via MinIO.
+### 🔹 Communication en temps réel
+- Chat instantané avec **WebSocket / Socket.IO**.
+- Notifications en temps réel (in-app + email).
 
-🔹 Messagerie instantanée avec WebSocket (Socket.IO).
+### 🔹 Estimation de prix intelligente
+- Calcul automatique d’un **intervalle de prix recommandé** basé sur les caractéristiques du bien via un **modèle d’intelligence artificielle (LLM)**.
 
-🔹 Notifications en temps réel et par e-mail.
+### 🔹 Système de notification
+- Envoi de notifications lors de :
+  - Réception d’un message ou d’un lead.
+  - Expiration d’un abonnement.
+  - Validation ou suppression d’une annonce.
 
-🔹 Système de plans d’abonnement (Gratuit / Pro / Premium).
+### 🔹 Recherche et filtrage avancés
+- Recherche multi-critères : localisation, prix, surface, type, équipements, etc.
+- Tri par **pertinence**, **récence**, ou **prix**.
 
-🔹 Estimation intelligente du prix via un module IA (LLM).
+### 🔹 Gestion des leads
+- Création automatique d’un lead lorsqu’un utilisateur manifeste un intérêt.
+- Ouverture automatique d’un canal de discussion.
 
-🔹 Module de financement et simulateur de crédit immobilier.
+### 🔹 Espace administrateur
+- Tableau de bord complet : gestion des utilisateurs, annonces, abonnements, statistiques, modération.
 
-🔹 Tableau de bord administrateur (modération, statistiques, gestion des comptes).
+### 🔹 Options de financement
+- Présentation de **banques partenaires** et simulateur de crédit immobilier.
+- Interconnexion avec la plateforme **Tirelire (Daret l Darna)** pour les épargnes collectives.
 
-🔹 Intégration avec Tirelire (Daret l Darna) pour le financement collaboratif.
+---
 
-🧰 Technologies utilisées
-Domaine	Technologie
-Langage principal	JavaScript (ES6+)
-Framework serveur	Express.js
-Paradigme	Programmation Orientée Objet (OOP)
-Base de données	MongoDB (ODM : Mongoose)
-Sécurité	JWT, bcrypt, Helmet, CORS
-Communication temps réel	WebSocket (Socket.IO)
-Tests unitaires	Jest
-Conteneurisation	Docker / Docker Compose
-Déploiement continu	GitHub Actions / PM2 / Jenkins
-Gestion de projet	JIRA (Epics, User Stories, Tasks, Automatisations)
-🏗️ Structure du projet
-real-estate-api/
-│
-├── src/
-│   ├── config/                     # Configuration (DB, MinIO, JWT, etc.)
-│   │   ├── database.js
-│   │   ├── minio.js
-│   │   └── env.js
+## 🧩 Technologies utilisées
+
+| Catégorie | Technologies |
+|------------|--------------|
+| **Backend** | Node.js, Express.js |
+| **Base de données** | MongoDB + Mongoose |
+| **Authentification** | JWT + OAuth + 2FA |
+| **Stockage fichiers** | MinIO |
+| **Temps réel** | Socket.IO / WS |
+| **Tests** | Jest |
+| **Gestion projet** | JIRA (Epics, User Stories, Tasks, Subtasks) |
+| **CI/CD** | GitHub Actions / Jenkins |
+| **Déploiement** | Docker + PM2 |
+| **Architecture** | N-tiers (Controller / Service / Model / Route / Middleware) |
+
+---
+
+## 🧱 Structure du projet
+
+```bash
+📦 real-estate-platform
+├── 📁 src
+│   ├── 📁 config
+│   │   ├── db.js                # Connexion MongoDB
+│   │   ├── minio.js             # Configuration MinIO
+│   │   └── jwt.js               # Configuration JWT
 │   │
-│   ├── models/                     # Modèles MongoDB (Schemas)
-│   │   ├── User.model.js
-│   │   ├── Property.model.js
-│   │   ├── Message.model.js
-│   │   ├── Notification.model.js
-│   │   └── Subscription.model.js
+│   ├── 📁 models
+│   │   ├── user.model.js
+│   │   ├── property.model.js
+│   │   ├── subscription.model.js
+│   │   ├── message.model.js
+│   │   ├── notification.model.js
+│   │   └── lead.model.js
 │   │
-│   ├── controllers/                # Logique de contrôle (connexion avec routes)
-│   │   ├── Auth.controller.js
-│   │   ├── Property.controller.js
-│   │   ├── Message.controller.js
-│   │   ├── Notification.controller.js
-│   │   └── Admin.controller.js
+│   ├── 📁 controllers
+│   │   ├── user.controller.js
+│   │   ├── property.controller.js
+│   │   ├── auth.controller.js
+│   │   ├── message.controller.js
+│   │   ├── notification.controller.js
+│   │   └── admin.controller.js
 │   │
-│   ├── services/                   # Logique métier (Business Logic)
-│   │   ├── Auth.service.js
-│   │   ├── Property.service.js
-│   │   ├── Message.service.js
-│   │   ├── Notification.service.js
-│   │   └── Estimation.service.js
+│   ├── 📁 services
+│   │   ├── user.service.js
+│   │   ├── property.service.js
+│   │   ├── auth.service.js
+│   │   ├── notification.service.js
+│   │   └── aiPrice.service.js
 │   │
-│   ├── routes/                     # Points d’entrée de l’API
-│   │   ├── auth.routes.js
+│   ├── 📁 routes
+│   │   ├── user.routes.js
 │   │   ├── property.routes.js
+│   │   ├── auth.routes.js
 │   │   ├── message.routes.js
 │   │   ├── notification.routes.js
 │   │   └── admin.routes.js
 │   │
-│   ├── middlewares/                # Vérifications et sécurité
+│   ├── 📁 middlewares
 │   │   ├── auth.middleware.js
 │   │   ├── error.middleware.js
-│   │   ├── validation.middleware.js
-│   │   └── role.middleware.js
+│   │   └── validation.middleware.js
 │   │
-│   ├── utils/                      # Fonctions réutilisables
-│   │   ├── sendEmail.js
-│   │   ├── generateToken.js
-│   │   └── logger.js
+│   ├── 📁 utils
+│   │   ├── logger.js
+│   │   ├── email.js
+│   │   └── helpers.js
 │   │
-│   ├── tests/                      # Tests unitaires avec Jest
-│   │   ├── property.test.js
-│   │   ├── auth.test.js
-│   │   └── message.test.js
-│   │
-│   ├── app.js                      # Initialisation d’Express, middlewares, routes
-│   └── server.js                   # Point d’entrée principal
+│   ├── app.js                   # Initialisation de l’application Express
+│   └── server.js                # Point d’entrée principal
 │
-├── .env                            # Variables d’environnement
+├── 📁 tests                     # Tests unitaires avec Jest
+│   ├── user.test.js
+│   ├── property.test.js
+│   └── auth.test.js
+│
+├── 📁 docker
+│   ├── Dockerfile
+│   └── docker-compose.yml
+│
+├── .env.example                 # Exemple des variables d’environnement
 ├── .gitignore
-├── Dockerfile
-├── docker-compose.yml
 ├── package.json
-├── jest.config.js
 ├── README.md
 └── LICENSE
 
 ⚙️ Installation et exécution locale
 1️⃣ Cloner le projet
 git clone https://github.com/sahnoun122/darna.git
-cd real-estate-api
+cd darna
 
 2️⃣ Installer les dépendances
 npm install
