@@ -11,44 +11,54 @@ Cette solution se veut **scalable**, **sécurisée** et **intelligente**, exploi
 ## 🚀 Fonctionnalités principales
 
 ### 🔹 Gestion complète des biens immobiliers
+
 - Création, modification, suppression et publication des annonces.
 - Vente, location journalière, mensuelle ou longue durée.
 - Promotion de biens selon le plan d’abonnement.
 
 ### 🔹 Comptes et abonnements différenciés
+
 - Profils : **Visiteur**, **Particulier**, **Entreprise (Agence/Promoteur)**, **Administrateur**.
 - Types d’abonnement : **Gratuit**, **Pro**, **Premium**.
 - Impact sur la visibilité et la priorité d’affichage.
 
 ### 🔹 Stockage de médias
+
 - Hébergement d’images et vidéos sur **MinIO**.
 - Génération automatique de vignettes.
 
 ### 🔹 Communication en temps réel
+
 - Chat instantané avec **WebSocket / Socket.IO**.
 - Notifications en temps réel (in-app + email).
 
 ### 🔹 Estimation de prix intelligente
+
 - Calcul automatique d’un **intervalle de prix recommandé** basé sur les caractéristiques du bien via un **modèle d’intelligence artificielle (LLM)**.
 
 ### 🔹 Système de notification
+
 - Envoi de notifications lors de :
-  - Réception d’un message ou d’un lead.
-  - Expiration d’un abonnement.
-  - Validation ou suppression d’une annonce.
+   - Réception d’un message ou d’un lead.
+   - Expiration d’un abonnement.
+   - Validation ou suppression d’une annonce.
 
 ### 🔹 Recherche et filtrage avancés
+
 - Recherche multi-critères : localisation, prix, surface, type, équipements, etc.
 - Tri par **pertinence**, **récence**, ou **prix**.
 
 ### 🔹 Gestion des leads
+
 - Création automatique d’un lead lorsqu’un utilisateur manifeste un intérêt.
 - Ouverture automatique d’un canal de discussion.
 
 ### 🔹 Espace administrateur
+
 - Tableau de bord complet : gestion des utilisateurs, annonces, abonnements, statistiques, modération.
 
 ### 🔹 Options de financement
+
 - Présentation de **banques partenaires** et simulateur de crédit immobilier.
 - Interconnexion avec la plateforme **Tirelire (Daret l Darna)** pour les épargnes collectives.
 
@@ -56,18 +66,18 @@ Cette solution se veut **scalable**, **sécurisée** et **intelligente**, exploi
 
 ## 🧩 Technologies utilisées
 
-| Catégorie | Technologies |
-|------------|--------------|
-| **Backend** | Node.js, Express.js |
-| **Base de données** | MongoDB + Mongoose |
-| **Authentification** | JWT + OAuth + 2FA |
-| **Stockage fichiers** | MinIO |
-| **Temps réel** | Socket.IO / WS |
-| **Tests** | Jest |
-| **Gestion projet** | JIRA (Epics, User Stories, Tasks, Subtasks) |
-| **CI/CD** | GitHub Actions / Jenkins |
-| **Déploiement** | Docker + PM2 |
-| **Architecture** | N-tiers (Controller / Service / Model / Route / Middleware) |
+| Catégorie             | Technologies                                                |
+| --------------------- | ----------------------------------------------------------- |
+| **Backend**           | Node.js, Express.js                                         |
+| **Base de données**   | MongoDB + Mongoose                                          |
+| **Authentification**  | JWT + OAuth + 2FA                                           |
+| **Stockage fichiers** | MinIO                                                       |
+| **Temps réel**        | Socket.IO / WS                                              |
+| **Tests**             | Jest                                                        |
+| **Gestion projet**    | JIRA (Epics, User Stories, Tasks, Subtasks)                 |
+| **CI/CD**             | GitHub Actions / Jenkins                                    |
+| **Déploiement**       | Docker + PM2                                                |
+| **Architecture**      | N-tiers (Controller / Service / Model / Route / Middleware) |
 
 ---
 
@@ -289,3 +299,4 @@ Automatisation : lien direct avec GitHub pour suivi des commits et branches.
 📄 Licence
 
 Projet sous licence MIT – libre d’utilisation, modification et distribution à des fins éducatives ou professionnelles.
+```
