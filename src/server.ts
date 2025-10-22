@@ -1,27 +1,19 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import dotenv from "dotenv";
+import express from "express";
+import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/auth.routes.js";
 
 dotenv.config();
 
-const app = express();
+await connectDB();
+
+export const app = express();
 
 app.use(express.json());
-
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/darna';
-
-mongoose
-	.connect(MONGO_URI)
-	.then(() => console.log('Connecté à   MongoDB'))
-	.catch((err) => console.error('Erreur de connexion MongoDB:', err));
-
-app.get('/', (req, res) => {
-	res.json({ message: '🚀 API fonctionnelle avec Express + TypeScript + ES6' });
-});
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 8000;
 
-// Démarrer le serveur
 app.listen(PORT, () => {
 	console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
