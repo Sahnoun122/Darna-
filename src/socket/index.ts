@@ -2,7 +2,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 import { socketAuth } from './auth';
-import { chatHandlers } from './chat.handlers';
+// import { chatHandlers } from './chat.handlers';
 
 export function initSocket(server: http.Server) {
 	const io = new Server(server, {
@@ -22,7 +22,7 @@ export function initSocket(server: http.Server) {
 
 		if (user?.id) socket.join(`user:${user.id}`);
 
-		chatHandlers(io, socket);
+		// chatHandlers(io, socket);
 
 		socket.on('disconnect', (reason) => {
 			console.log(`🔌 Socket disconnected: ${socket.id} reason:${reason}`);
