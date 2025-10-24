@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ThreadModel } from '../models/thread.model';
-import { MessageModel } from '../models/message.model';
+import { IMessage } from '../models/message.model';
 
 export const createThread = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -18,7 +18,7 @@ export const createThread = async (req: Request, res: Response, next: NextFuncti
 export const getThreadMessages = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const { threadId } = req.params;
-		const messages = await MessageModel.find({ threadId }).sort({ createdAt: 1 }).limit(500);
+		const messages = await IMessage.find({ threadId }).sort({ createdAt: 1 }).limit(500);
 		return res.json({ ok: true, messages });
 	} catch (err) {
 		next(err);

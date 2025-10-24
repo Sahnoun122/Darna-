@@ -1,19 +1,24 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export interface IThread extends Document {
-	propertyId?: string;
-	participants: string[];
-	lastMessage?: string;
-	createdAt?: Date;
+	property?: mongoose.Types.ObjectId;
+	participants: mongoose.Types.ObjectId[];
+	lastMessage?: mongoose.Types.ObjectId;
+	createdBy?: mongoose.Types.ObjectId;
+	unreadCounts?: Map<string, number>;
 }
 
-const ThreadSchema = new Schema<IThread>(
+const ThreadSchema = new mongoose.Schema<IThread>(
 	{
-		propertyId: String,
-		participants: [{ type: String, required: true }],
-		lastMessage: String,
+		property: { type: mongoose.Schema.Types.ObjectId, ref: 'Property' },
+		participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+		lastMessage: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
+		createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+		unreadCounts: { type: Map, of: Number, default: {} },
 	},
 	{ timestamps: true }
 );
 
-export const ThreadModel = mongoose.model<IThread>('Thread', ThreadSchema);
+ThreadSchema.index({ participants: 1 });
+
+export default mongoose.model<IThread>('Thread', ThreadSchema);
