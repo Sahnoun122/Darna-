@@ -5,7 +5,12 @@ export class PropertyService {
 		const property = new Property(data);
 		return await property.save();
 	}
+
 	async getAllProperties(filters = {}) {
 		return await Property.find(filters).populate('owner', 'name email');
+	}
+
+	async getPropertyById(id: string) {
+		return await Property.findById(id).populate('owner', 'name email');
 	}
 }
