@@ -3,4 +3,16 @@ import { PropertyService } from '../services/property.service.js';
 
 const propertyService = new PropertyService();
 
-export class PropertyController {}
+export class PropertyController {
+	async create(req: Request, res: Response) {
+		try {
+			const property = await propertyService.createProperty({
+				...req.body,
+				owner: (req as any).user?.id || (req as any).user?._id, // à gérer avec middleware JWT plus tard
+			});
+			res.status(201).json(property);
+		} catch (err: any) {
+			res.status(400).json({ error: err.message });
+		}
+	}
+}
