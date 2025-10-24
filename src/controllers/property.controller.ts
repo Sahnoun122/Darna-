@@ -26,4 +26,9 @@ export class PropertyController {
 		if (!property) return res.status(404).json({ message: 'Bien introuvable' });
 		res.json(property);
 	}
+
+	async update(req: Request, res: Response) {
+		const updated = await propertyService.updateProperty(req.params.id, req.body);
+		res.json(updated);
+	}
 }
