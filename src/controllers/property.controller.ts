@@ -15,4 +15,9 @@ export class PropertyController {
 			res.status(400).json({ error: err.message });
 		}
 	}
+
+	async getAll(req: Request, res: Response) {
+		const properties = await propertyService.getAllProperties();
+		res.json(properties);
+	}
 }
