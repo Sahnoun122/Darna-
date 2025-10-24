@@ -1,4 +1,4 @@
-import { Message } from '../models/message.model.js';
+import Message from '../models/message.model.js';
 
 export const saveMessage = async (sender: string, receiver: string, content: string) => {
 	const message = new Message({ sender, receiver, content });
