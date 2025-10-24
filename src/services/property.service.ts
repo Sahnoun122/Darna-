@@ -13,4 +13,8 @@ export class PropertyService {
 	async getPropertyById(id: string) {
 		return await Property.findById(id).populate('owner', 'name email');
 	}
+
+	async updateProperty(id: string, data: Partial<IProperty>) {
+		return await Property.findByIdAndUpdate(id, data, { new: true });
+	}
 }
