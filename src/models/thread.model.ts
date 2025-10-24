@@ -1,24 +1,25 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Schema, Document, Model, Types } from 'mongoose';
 
-export interface IThread extends Document {
-	property?: mongoose.Types.ObjectId;
-	participants: mongoose.Types.ObjectId[];
-	lastMessage?: mongoose.Types.ObjectId;
-	createdBy?: mongoose.Types.ObjectId;
-	unreadCounts?: Map<string, number>;
+export interface IThread {
+	participants: Types.ObjectId[];
+	property?: Types.ObjectId;
+	lastMessage?: Types.ObjectId;
+	createdBy: Types.ObjectId;
+	createdAt?: Date;
+	updatedAt?: Date;
 }
 
-const ThreadSchema = new mongoose.Schema<IThread>(
+export interface IThreadDocument extends IThread, Document {}
+export interface IThreadModel extends Model<IThreadDocument> {}
+
+const threadSchema = new Schema<IThreadDocument>(
 	{
-		property: { type: mongoose.Schema.Types.ObjectId, ref: 'Property' },
-		participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-		lastMessage: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
-		createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-		unreadCounts: { type: Map, of: Number, default: {} },
+		participants: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
+		property: { type: Schema.Types.ObjectId, ref: 'Property' },
+		lastMessage: { type: Schema.Types.ObjectId, ref: 'Message' },
+		createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 	},
 	{ timestamps: true }
 );
 
-ThreadSchema.index({ participants: 1 });
-
-export default mongoose.model<IThread>('Thread', ThreadSchema);
+export default mongoose.model<IThreadDocument, IThreadModel>('Thread', threadSchema);

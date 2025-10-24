@@ -1,16 +1,17 @@
 import bcrypt from 'bcryptjs';
-import { Schema, model, Document, Model } from 'mongoose';
+import { Schema, model, Document, Model, Types } from 'mongoose';
 
 export interface IUser {
 	username: string;
 	email: string;
 	password: string;
-	plan: string;
-	createdAt: Date;
-	updatedAt: Date;
+	plan?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
 }
 
 export interface IUserDocument extends IUser, Document {
+	_id: Types.ObjectId;
 	comparePassword(candidate: string): Promise<boolean>;
 }
 
@@ -37,7 +38,6 @@ const userSchema = new Schema<IUserDocument, IUserModel>(
 		},
 		plan: {
 			type: String,
-			required: true,
 			default: 'basic',
 		},
 	},
@@ -46,30 +46,28 @@ const userSchema = new Schema<IUserDocument, IUserModel>(
 	}
 );
 
-userSchema.pre('save', async function hashPassword(next) {
-	if (!this.isModified('password')) {
-		return next();
-	}
+userSchema.pre<IUserDocument>('save', async function (next) {
+	if (!this.isModified('password')) return next();
 
 	try {
 		const salt = await bcrypt.genSalt(10);
 		this.password = await bcrypt.hash(this.password, salt);
-		return next();
+		next();
 	} catch (error) {
-		return next(error as Error);
+		next(error as Error);
 	}
 });
 
-userSchema.methods.comparePassword = function comparePassword(candidate: string): Promise<boolean> {
+userSchema.methods.comparePassword = async function (candidate: string): Promise<boolean> {
 	return bcrypt.compare(candidate, this.password);
 };
 
 userSchema.set('toJSON', {
 	transform: (_document, returned: any) => {
-		returned.id = returned._id.toString();
+		returned.id = returned._id instanceof Types.ObjectId ? returned._id.toString() : returned._id;
 		delete returned._id;
-		delete (returned as { __v?: number }).__v;
-		delete (returned as { password?: string }).password;
+		delete returned.__v;
+		delete returned.password;
 		return returned;
 	},
 });
