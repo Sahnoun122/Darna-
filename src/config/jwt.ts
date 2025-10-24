@@ -17,3 +17,8 @@ export const signAccessToken = (payload: JwtPayload): string =>
 
 export const verifyAccessToken = (token: string): JwtPayload =>
 	jwt.verify(token, accessTokenSecret) as JwtPayload;
+
+export const jwtConfig = {
+	secret: accessTokenSecret,
+	expiresIn: accessTokenExpiresIn,
+};
