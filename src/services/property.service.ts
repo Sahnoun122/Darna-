@@ -5,4 +5,7 @@ export class PropertyService {
 		const property = new Property(data);
 		return await property.save();
 	}
+	async getAllProperties(filters = {}) {
+		return await Property.find(filters).populate('owner', 'name email');
+	}
 }
