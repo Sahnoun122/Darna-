@@ -64,3 +64,4 @@ const propertySchema = new Schema<IProperty>(
 	},
 	{ timestamps: true }
 );
+export const Property = model<IProperty>('Property', propertySchema);
