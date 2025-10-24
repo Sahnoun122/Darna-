@@ -31,4 +31,9 @@ export class PropertyController {
 		const updated = await propertyService.updateProperty(req.params.id, req.body);
 		res.json(updated);
 	}
+
+	async delete(req: Request, res: Response) {
+		await propertyService.deleteProperty(req.params.id);
+		res.json({ message: 'Bien supprimé avec succès' });
+	}
 }
