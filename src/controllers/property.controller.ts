@@ -20,4 +20,10 @@ export class PropertyController {
 		const properties = await propertyService.getAllProperties();
 		res.json(properties);
 	}
+
+	async getById(req: Request, res: Response) {
+		const property = await propertyService.getPropertyById(req.params.id);
+		if (!property) return res.status(404).json({ message: 'Bien introuvable' });
+		res.json(property);
+	}
 }
