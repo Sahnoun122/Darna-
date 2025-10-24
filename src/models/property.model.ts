@@ -29,3 +29,38 @@ export interface IProperty extends Document {
 	createdAt: Date;
 	updatedAt: Date;
 }
+
+const propertySchema = new Schema<IProperty>(
+	{
+		title: { type: String, required: true },
+		description: { type: String, required: true },
+		transactionType: {
+			type: String,
+			enum: ['vente', 'location_journalière', 'location_mensuelle', 'location_longue'],
+			required: true,
+		},
+		price: { type: Number, required: true },
+		availability: { type: Boolean, default: true },
+		location: {
+			address: String,
+			city: String,
+			latitude: Number,
+			longitude: Number,
+		},
+		characteristics: {
+			surface: Number,
+			rooms: Number,
+			bedrooms: Number,
+			bathrooms: Number,
+			equipment: [String],
+			rules: [String],
+			energyRating: String,
+		},
+		owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+		media: {
+			images: [String],
+			videos: [String],
+		},
+	},
+	{ timestamps: true }
+);
