@@ -17,4 +17,8 @@ export class PropertyService {
 	async updateProperty(id: string, data: Partial<IProperty>) {
 		return await Property.findByIdAndUpdate(id, data, { new: true });
 	}
+
+	async deleteProperty(id: string) {
+		return await Property.findByIdAndDelete(id);
+	}
 }
