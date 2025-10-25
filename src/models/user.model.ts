@@ -1,11 +1,13 @@
-import bcrypt from "bcryptjs";
-import { Schema, model, Document, Model } from "mongoose";
+import bcrypt from 'bcryptjs';
+import { Schema, model, Document, Model } from 'mongoose';
 
 export interface IUser {
 	username: string;
 	email: string;
 	password: string;
 	plan: string;
+	twoFA: boolean;
+	twoFASecret?: string | null;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -38,7 +40,16 @@ const userSchema = new Schema<IUserDocument, IUserModel>(
 		plan: {
 			type: String,
 			required: true,
-			default: "basic",
+			default: 'basic',
+		},
+		twoFA: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		twoFASecret: {
+			type: String,
+			default: null,
 		},
 	},
 	{
@@ -46,8 +57,8 @@ const userSchema = new Schema<IUserDocument, IUserModel>(
 	}
 );
 
-userSchema.pre("save", async function hashPassword(next) {
-	if (!this.isModified("password")) {
+userSchema.pre('save', async function hashPassword(next) {
+	if (!this.isModified('password')) {
 		return next();
 	}
 
@@ -64,14 +75,15 @@ userSchema.methods.comparePassword = function comparePassword(candidate: string)
 	return bcrypt.compare(candidate, this.password);
 };
 
-userSchema.set("toJSON", {
+userSchema.set('toJSON', {
 	transform: (_document, returned: any) => {
 		returned.id = returned._id.toString();
 		delete returned._id;
 		delete (returned as { __v?: number }).__v;
 		delete (returned as { password?: string }).password;
+		delete (returned as { twoFASecret?: string | null }).twoFASecret;
 		return returned;
 	},
 });
 
-export const User = model<IUserDocument, IUserModel>("User", userSchema);
+export const User = model<IUserDocument, IUserModel>('User', userSchema);

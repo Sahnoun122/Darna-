@@ -3,6 +3,7 @@ import express from 'express';
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import propertyRoutes from './routes/property.routes.js';
+import twoFARoutes from './routes/twoFA.routes.js';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ export const app = express();
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertyRoutes);
+app.use('/api/2fa', twoFARoutes);
 
 const PORT = process.env.PORT || 8000;
 
